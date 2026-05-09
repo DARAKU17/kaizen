@@ -11,13 +11,6 @@ kura_env/
 *.pt
 *.onnx
 
-# data
-data/raw/
-data/processed/
-*.wav
-*.mp3
-*.zip
-
 # notebooks
 .ipynb_checkpoints/
 
