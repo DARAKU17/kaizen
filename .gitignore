@@ -6,6 +6,12 @@ __pycache__/
 venv/
 kura_env/
 
+# ignore raw audio
+audio_data_raw/
+
+# keep processed audio
+!audio_data_processed/
+
 # models
 *.pth
 *.pt
