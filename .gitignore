@@ -1,0 +1,27 @@
+# python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+kura_env/
+
+# models
+*.pth
+*.pt
+*.onnx
+
+# data
+data/raw/
+data/processed/
+*.npy
+*.wav
+*.mp3
+*.zip
+
+# notebooks
+.ipynb_checkpoints/
+
+# misc
+.DS_Store
+.env
