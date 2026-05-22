@@ -19,7 +19,7 @@ model = KaizenWakeWord(
     hidden_size=128
 ).to(device)
 
-model.load_state_dict(torch.load("kaizen_lstm.pth", map_location=device))
+model.load_state_dict(torch.load("models/kaizen_lstm.pth", map_location=device))
 model.eval()
 
 print("🔥 Kaizen LSTM Wake Engine Running...")

@@ -6,20 +6,11 @@ __pycache__/
 venv/
 kura_env/
 
-# ignore raw audio
-audio_data_raw/
-
-# keep processed audio
-!audio_data_processed/
-
-# models
-*.pth
-*.pt
-*.onnx
-
 # notebooks
 .ipynb_checkpoints/
 
 # misc
 .DS_Store
 .env
+audio_data_raw/
+

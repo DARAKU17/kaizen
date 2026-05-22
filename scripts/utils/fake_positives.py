@@ -19,8 +19,8 @@ VOICES = [
 ]
 
 PHRASES = [
-    "Kaizen",
-    "Hey Kaizen"
+    "Kyzen",
+    "Hey Kyzen"
 ]
 
 RATES = ["-10%", "+15%", "+10%"]

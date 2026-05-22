@@ -1,10 +1,10 @@
 import torch
-from model import WakeWordCNN
+from model import KaizenWakeWord
 from features import extract_features
 
 def predict(file_path):
-    model = WakeWordCNN()
-    model.load_state_dict(torch.load("kaizen.pth"))
+    model = KaizenWakeWord()
+    model.load_state_dict(torch.load("models/kaizen_lstm.pth"))
     model.eval()
 
     x = extract_features(file_path)

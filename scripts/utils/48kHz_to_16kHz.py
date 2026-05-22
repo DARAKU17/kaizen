@@ -2,8 +2,8 @@ import os
 import librosa
 import soundfile as sf
 
-INPUT_DIR = "data/test_samples"
-OUTPUT_DIR = "data/raw/positive"
+INPUT_DIR = "/home/astro/Kaizen/scripts/main/test_audio/wakeword/"
+OUTPUT_DIR = "/home/astro/Kaizen/scripts/main/test_audio/wakeword/"
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
