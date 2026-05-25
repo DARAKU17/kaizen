@@ -8,7 +8,9 @@ from torch.utils.data import Dataset, DataLoader, random_split
 from sklearn.metrics import f1_score
 
 from model import WakeCRNN
+from train_logger import TrainingLogger
 
+logger = TrainingLogger("kaizen_train.jsonl")
 
 # =========================
 # CONFIG
@@ -150,6 +152,7 @@ def train():
     best_loss = float("inf")
     best_f1 = 0
     best_acc = 0
+    best_score = 0
     patience_counter = 0
 
 
@@ -167,7 +170,7 @@ def train():
     grad_norms = []
     reg_effect = []
 
-    fig, axs = plt.subplots(2, 3, figsize=(14, 8))
+    fig, axs = plt.subplots(3, 3, figsize=(14, 8))
     fig.suptitle("🔥 Kaizen Training Dashboard", fontsize=14)
 
     def get_weight_norm(model):
@@ -349,8 +352,7 @@ def train():
 
         update_dashboard()
 
-      
-
+        
 
         # -------------------
         # SAVE BESTS
@@ -359,31 +361,41 @@ def train():
 
         if val_loss < best_loss:
             best_loss = val_loss
-            torch.save(
-                model.state_dict(),
-                "../../models/best_loss.pth"
-            )
             print("💾 best loss")
             improved = True
 
         if val_f1 > best_f1:
             best_f1 = val_f1
-            torch.save(
-                model.state_dict(),
-                "../../models/best_f1.pth"
-            )
             print("🔥 best f1")
             improved = True
 
         if val_acc > best_acc:
             best_acc = val_acc
-            torch.save(
-                model.state_dict(),
-                "../../models/best_acc.pth"
-            )
             print("📈 best acc")
             improved = True
-
+        
+        current_grad_norm = grad_norms[-1]
+        score = (
+            0.6 * val_f1 +
+            0.2 * (1 - min(val_loss, 1.0)) +
+            0.2 * max(0.0, 1 - (min(current_grad_norm, 5)/ 10))
+        )
+        if score > best_score:
+            best_score = score
+            torch.save(model.state_dict(), "../../models/kaizen_crnn_wakeword.pth")
+            print("🏆 best overall model saved")
+            improved = True
+        
+        logger.log_epoch(epoch, {
+            "train_loss": train_losses[-1],
+            "val_loss": val_losses[-1],
+            "train_acc": train_accs[-1],
+            "val_acc": val_accs[-1],
+            "val_f1": val_f1s[-1],
+            "grad_norm": grad_norms[-1],
+            "weight_norm": weight_norms[-1],
+            "lr": LR
+        })      
 
         # -------------------
         # EARLY STOP
