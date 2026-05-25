@@ -13,4 +13,4 @@ kura_env/
 .DS_Store
 .env
 audio_data_raw/
-
+en_US-amy-medium.onnx
